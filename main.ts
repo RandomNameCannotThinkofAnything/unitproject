@@ -71,3 +71,4 @@ let enemy2 = sprites.create(img`
     ........................
     `, SpriteKind.Enemy)
 controller.moveSprite(mySprite)
+tiles.setCurrentTilemap(tilemap`level1`)
