@@ -1,4 +1,8 @@
  
+A grid based movement system that functions somewhat like a rhythm game- whenever you press a button to move one tile forward, the enemies move a tile forward. 
+This could be the basis of a video game.
+ It will use Javascript.
+It can use arrays to make the enemies and control them (while this button is pressed, then…), tile maps to make the grid, could support multiplayer with multiple player characters trying to dodge the enemies, use basic AI with if the player moved this direction, then enemy move that direction. It can do this within functions to streamline the code. 
 
 
 > Open this page at [https://randomnamecannotthinkofanything.github.io/unitproject/](https://randomnamecannotthinkofanything.github.io/unitproject/)
