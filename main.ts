@@ -1,6 +1,28 @@
+// hfshfd
+function setUp () {
+    tiles.placeOnRandomTile(mySprite, sprites.castle.tileDarkGrass1)
+    tiles.placeOnRandomTile(enemy, sprites.castle.tileDarkGrass1)
+    tiles.placeOnRandomTile(enemy2, sprites.castle.tileDarkGrass1)
+    scene.cameraFollowSprite(mySprite)
+}
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.y += -10
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.x += -10
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.x += 10
+})
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.y += 10
+})
+let enemy2: Sprite = null
+let enemy: Sprite = null
+let mySprite: Sprite = null
 // this is a test to see if commits work
 // yes they do!
-let mySprite = sprites.create(img`
+mySprite = sprites.create(img`
     . . . . . . f f f f . . . . . . 
     . . . . f f f 2 2 f f f . . . . 
     . . . f f f 2 2 2 2 f f f . . . 
@@ -18,7 +40,7 @@ let mySprite = sprites.create(img`
     . . . . . f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `, SpriteKind.Player)
-let enemy = sprites.create(img`
+enemy = sprites.create(img`
     ........................
     ........................
     ........................
@@ -44,7 +66,7 @@ let enemy = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Enemy)
-let enemy2 = sprites.create(img`
+enemy2 = sprites.create(img`
     ........................
     ........................
     ........................
@@ -70,5 +92,5 @@ let enemy2 = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.Enemy)
-controller.moveSprite(mySprite)
 tiles.setCurrentTilemap(tilemap`level2`)
+setUp()
