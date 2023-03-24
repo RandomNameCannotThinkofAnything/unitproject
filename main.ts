@@ -19,7 +19,7 @@ mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, firstPlayer, 50, 50)
+        `, firstPlayer, 0, -100)
 })
 // hfshfd
 function setUp () {
@@ -46,6 +46,9 @@ function setUp () {
     info.setScore(0)
     info.setLife(3)
 }
+function numEnemies () {
+    return counter
+}
 function follow (sprite: Sprite) {
     array = sprites.allOfKind(SpriteKind.Enemy)
     for (let value of array) {
@@ -58,6 +61,7 @@ function follow (sprite: Sprite) {
     }
 }
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
     info.changeScoreBy(1)
     info.changeLifeBy(-1)
 })
@@ -70,8 +74,13 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (sprite) {
     firstPlayer.y += 10
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
+    info.changeScoreBy(1)
+})
 let enemies: Sprite = null
 let array: Sprite[] = []
+let counter = 0
 let projectile: Sprite = null
 let firstPlayer: Sprite = null
 let ms = 0
@@ -89,6 +98,11 @@ tiles.setCurrentTilemap(tilemap`level2`)
 setUp()
 game.onUpdate(function () {
     follow(firstPlayer)
+    if (info.life() == 0) {
+        game.splash("There were " + numEnemies() + " total enemies generated")
+        game.splash(info.score())
+        game.gameOver(false)
+    }
 })
 game.onUpdateInterval(ms, function () {
     enemies = sprites.create(img`
@@ -118,5 +132,5 @@ game.onUpdateInterval(ms, function () {
         ........................
         `, SpriteKind.Enemy)
     tiles.placeOnRandomTile(enemies, sprites.castle.tileDarkGrass1)
+    counter += 1
 })
-
